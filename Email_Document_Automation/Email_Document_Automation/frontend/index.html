@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email & Document Automation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <p class="eyebrow">Writing Automation</p>
+        <h1>Email & Document Studio</h1>
+        <p class="lede">Generate emails, letters, and reports. Summarize PDF/DOCX files. Export or send when SMTP is configured.</p>
+      </div>
+      <div id="status" class="status">Checking…</div>
+    </header>
+
+    <div class="tabs">
+      <button type="button" class="tab active" data-tab="generate">Generate</button>
+      <button type="button" class="tab" data-tab="summarize">Summarize files</button>
+      <button type="button" class="tab" data-tab="email">Send email</button>
+    </div>
+
+    <section class="panel tab-panel active" id="generatePanel">
+      <form id="generateForm">
+        <div class="grid-2">
+          <label>Document type
+            <select id="docType">
+              <option value="email">Email</option>
+              <option value="letter">Formal letter</option>
+              <option value="application">Application</option>
+              <option value="report">Report</option>
+              <option value="summary">Summary</option>
+              <option value="document">Document</option>
+            </select>
+          </label>
+          <label>Tone
+            <select id="tone">
+              <option value="professional">Professional</option>
+              <option value="formal">Formal</option>
+              <option value="friendly">Friendly</option>
+              <option value="persuasive">Persuasive</option>
+              <option value="concise">Concise</option>
+            </select>
+          </label>
+        </div>
+        <label>Topic / purpose
+          <textarea id="topic" rows="3" maxlength="2000" required placeholder="Request a meeting to discuss Q2 partnership terms…"></textarea>
+        </label>
+        <label>Recipient (optional)
+          <input id="recipient" maxlength="200" placeholder="Alex Rivera, Acme Corp" />
+        </label>
+        <label>Extra context (optional)
+          <textarea id="extra" rows="3" maxlength="5000" placeholder="Include timeline, constraints, or talking points…"></textarea>
+        </label>
+        <button type="submit" class="primary" id="genBtn">
+          <span class="label">Generate</span>
+          <span class="spinner hidden"></span>
+        </button>
+      </form>
+    </section>
+
+    <section class="panel tab-panel" id="summarizePanel">
+      <form id="summarizeForm">
+        <label>Upload PDF or DOCX
+          <input type="file" id="fileInput" accept=".pdf,.docx" required />
+        </label>
+        <label>Mode
+          <select id="sumMode">
+            <option value="summary">Summarize</option>
+            <option value="extract">Extract key information</option>
+          </select>
+        </label>
+        <button type="submit" class="primary" id="sumBtn">
+          <span class="label">Analyze document</span>
+          <span class="spinner hidden"></span>
+        </button>
+      </form>
+    </section>
+
+    <section class="panel tab-panel" id="emailPanel">
+      <form id="emailForm">
+        <label>To
+          <input id="toEmail" type="email" required placeholder="recipient@company.com" />
+        </label>
+        <label>Subject
+          <input id="emailSubject" required maxlength="200" />
+        </label>
+        <label>Body
+          <textarea id="emailBody" rows="8" required maxlength="20000"></textarea>
+        </label>
+        <button type="submit" class="primary" id="emailBtn">
+          <span class="label">Send email</span>
+          <span class="spinner hidden"></span>
+        </button>
+        <p class="note">Requires SMTP_* values in `.env`. Generated content can be copied here first.</p>
+      </form>
+    </section>
+
+    <p id="toast" class="toast hidden"></p>
+
+    <section class="panel output" id="outputPanel">
+      <div class="output-head">
+        <h2 id="outTitle">Output</h2>
+        <div class="export-row">
+          <a id="pdfLink" class="export hidden" href="#">PDF</a>
+          <a id="docxLink" class="export hidden" href="#">DOCX</a>
+          <button type="button" id="useEmailBtn" class="ghost">Use as email</button>
+          <button type="button" id="copyBtn" class="ghost">Copy</button>
+        </div>
+      </div>
+      <pre id="output">Generate or summarize a document to see results here.</pre>
+    </section>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
